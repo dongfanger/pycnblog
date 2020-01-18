@@ -39,7 +39,7 @@ password是密码。
 执行命令
 
 ```python
-python run.py "文件路径"  # 注意要用双引号哦
+python upload.py "文件路径"  # 注意要用双引号哦
 ```
 
 # 效果演示
