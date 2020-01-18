@@ -10,21 +10,21 @@ python3
 在config.py中，填写博客配置信息。
 
 ```python
-blog_url = 'xxx'
-blog_id = 'xxx'
-username = 'xxx'
-password = 'xxx'
+blog_url = 'https://rpc.cnblogs.com/metaweblog/testblog'
+blog_id = 'testblog'
+username = 'zhangsan'
+password = '123456'
 ```
 
 ## blog_url
 
-blog_url在博客后台>设置，页面最下方
-
-![1573285548666](README/1573285548666.png)
+blog_url在博客后台>设置，页面最下方的MetaWeblog访问地址。
+https://rpc.cnblogs.com/metaweblog/testblog
 
 ## blog_id
 
-blog_id就是上图打码的部分。
+blog_id就是访问地址的尾巴。
+testblog
 
 ## username
 
