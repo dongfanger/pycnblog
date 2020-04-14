@@ -44,5 +44,4 @@ python upload.py "文件路径"  # 注意要用双引号哦
 
 方式2 Windows系统 cmd：
 
-双击打开run.cmd，`Please input file path:`，把.md文件往cmd中一拖，`Please input file path:"E:\Test Case.md"`，再回车一敲。因为windows拖到cmd会自动把路径以双引号形式，显示出来。
-
+双击打开`cnblog_markdown.cmd`，`Please input file path:`，把.md文件往cmd中一拖，`Please input file path:"E:\Test Case.md"`，再回车一敲。因为windows把文件拖到cmd会自动把路径以双引号形式，显示出来。为了方便可右键`cnblog_markdown.cmd`创建桌面快捷方式。
