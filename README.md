@@ -36,9 +36,13 @@ password是密码。
 
 # 运行
 
-执行命令
+方式1 执行命令：
 
 ```python
 python upload.py "文件路径"  # 注意要用双引号哦
 ```
+
+方式2 Windows系统 cmd：
+
+双击打开run.cmd，`Please input file path:`，把.md文件往cmd中一拖，`Please input file path:"E:\Test Case.md"`，再回车一敲。因为windows拖到cmd会自动把路径以双引号形式，显示出来。
 
