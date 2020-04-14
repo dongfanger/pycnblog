@@ -38,10 +38,14 @@ password是密码。
 
 方式1 执行命令：
 
+```shell
+python upload.py ${filePath}  # 文件路径不包括空格
+```
+
 ```python
-python upload.py "文件路径"  # 注意要用双引号哦
+python upload.py "${filePath}"  # 若文件路径包含空格，需要加双引号
 ```
 
 方式2 Windows系统 cmd：
 
-双击打开`cnblog_markdown.cmd`，提示`Please input file path:`，把文件往cmd窗口拖就能带出来文件路径，如果文件名包含空格，还会自动加双引号。
+双击打开`cnblog_markdown.cmd`，提示`Please input file path:`，把文件往cmd窗口拖就能带出来文件路径，如果文件名包含空格，还会自动加双引号。为方便可右键发送到桌面快捷方式。
