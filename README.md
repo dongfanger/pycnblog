@@ -38,5 +38,5 @@ password是密码。
 
 Windows cmd：
 
-打开`cnblog_markdown.cmd`，提示`Please input file path:`
+打开`cnblog_markdown.cmd`，提示`Please input file path:`<br/>
 把文件往里一拖就完事了
