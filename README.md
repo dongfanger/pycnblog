@@ -36,6 +36,6 @@ password是密码。
 
 # 运行
 
-Windows cmd：
+windows cmd:<br/>
 打开`cnblog_markdown.cmd`，提示`Please input file path:`<br/>
 把文件往里一拖就完事了
