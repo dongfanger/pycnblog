@@ -1,5 +1,7 @@
 import asyncio
 import sys
+import html
+import xmlrpc.client
 
 from img_transfer import *
 
@@ -48,5 +50,24 @@ with open(md_path, encoding='utf-8') as f:
         print('无需上传图片')
 
     post = dict(description=md, title=title, categories=['[Markdown]'])
-    server.metaWeblog.newPost(blog_id, username, password, post, False)
-    print(f"markdown上传成功, 博客标题为'{title}', 状态为'未发布',请到博客园后台查看")
+    recent_posts = server.metaWeblog.getRecentPosts(blog_id, username, password, 999999)
+    # 获取所有标题，需要处理HTML转义字符
+    recent_posts_titles = [html.unescape(recent_post['title']) for recent_post in recent_posts]
+    if title not in recent_posts_titles:
+        server.metaWeblog.newPost(blog_id, username, password, post, False)
+        print(f"markdown上传成功, 博客标题为'{title}', 状态为'未发布', 请到博客园后台查看")
+    elif input('博客已存在, 是否更新?(y/n)') == 'y':
+        for recent_post in recent_posts:
+            if title == recent_post['title']:
+                update_post = recent_post
+                update_post['description'] = md
+                try:
+                    server.metaWeblog.editPost(update_post['postid'], username, password, update_post, False)
+                except xmlrpc.client.Fault as fault:
+                    if 'published post can not be saved as draft' in str(fault):
+                        server.metaWeblog.editPost(update_post['postid'], username, password, update_post, True)
+                    else:
+                        raise fault
+                print(f"博客'{title}'更新成功")
+    else:
+        print('上传已取消')
