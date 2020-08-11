@@ -28,7 +28,7 @@ testblog
 
 ## username
 
-username是登录用户名，跟blog_id不是同一个。
+username是登录用户名，跟blog_id不一定是同一个。
 
 ## password
 
@@ -37,5 +37,5 @@ password是密码。
 # 运行
 
 windows cmd:<br/>
-打开`cnblog_markdown.cmd`，提示`Please input file path:`<br/>
-把文件往里一拖就完事了
+打开`cnblog_markdown.cmd`（window里面双击此文件即可），提示`Please input file path:`<br/>
+把文件往里一拖，回车就完事了
