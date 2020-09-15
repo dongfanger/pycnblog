@@ -1,6 +1,14 @@
 # pycnblog
 博客园上传markdown文件 https://www.cnblogs.com/df888/p/11826480.html
 
+# 功能
+
+- 一键拖拽上传
+- 默认“未发布”，支持直接发布
+- 重复上传，更新博客
+- 支持上传后图片转为\<img src="" width=100% /\>，方便调整宽度
+- 支持上传后生成替换后本地文件
+
 # 环境
 
 python3

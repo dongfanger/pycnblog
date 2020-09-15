@@ -8,8 +8,8 @@ from server_proxy import server
 
 def find_md_img(md):
     """查找markdown中的图片，排除网络图片(不用上传)"""
-    images = re.findall("!\\[.*?\\]\\((.*?)\\)", md)
-    images += re.findall('<img src="(.*?)"', md)
+    images = re.findall("!\\[.*?\\]\\((.*)\\)", md)
+    images += re.findall('<img src="(.*)"', md)
     images = [i for i in images if not re.match("((http(s?))|(ftp))://.*", i)]
     print(f'共找到{len(images)}张本地图片{images}')
     return images
@@ -35,6 +35,11 @@ def replace_md_img(path, img_mapping):
         md = fr.read()
         for local, net in img_mapping.items():  # 替换图片链接
             md = md.replace(local, net)
+        if img_tag:
+            md_links = re.findall("!\\[.*?\\]\\(.*?\\)", md)
+            for ml in md_links:
+                img_url = re.findall("!\\[.*?\\]\\((.*?)\\)", md)[0]
+                md = md.replace(ml, f'<img src="{img_url}" width=100% />')
         if gen_network_file:
             path_net = os.path.join(os.path.dirname(path), '_network'.join(os.path.splitext(os.path.basename(path))))
             with open(path_net, 'w', encoding='utf-8') as fw:
