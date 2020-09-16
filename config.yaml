@@ -1,0 +1,14 @@
+blog_url: xxx
+blog_id: "xxx"
+username: "xxx"
+password: "xxx"
+
+# 是否生成图片替换后本地文件,默认False关闭
+gen_network_file: False
+
+# 上传后是否发布，默认未发布，设置True为发布
+publish: False
+
+# 图片自定义显示格式
+# 如设置width和居中，<center>\n<img src="{}" style="width:100%" />\n</center>
+img_format: <center>\n<img src="{}" style="width:100%" />\n</center>
