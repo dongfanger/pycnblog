@@ -6,7 +6,7 @@
 - 一键拖拽上传
 - 默认“未发布”，支持直接发布
 - 重复上传，更新博客
-- 支持上传后图片转为\<img\>标签，调整宽度和居中
+- 支持图片自定义显示格式
 - 支持上传后生成替换后本地文件
 
 # 环境
@@ -15,13 +15,13 @@ python3
 
 # 配置
 
-在config.py中，填写博客配置信息。
+在config.yaml中，填写博客配置信息。
 
 ```python
-blog_url = 'https://rpc.cnblogs.com/metaweblog/testblog'
-blog_id = 'testblog'
-username = 'zhangsan'
-password = '123456'
+blog_url: https://rpc.cnblogs.com/metaweblog/testblog
+blog_id: "testblog"
+username: "zhangsan"
+password: "123456"
 ```
 
 ## blog_url
@@ -31,8 +31,8 @@ https://rpc.cnblogs.com/metaweblog/testblog
 
 ## blog_id
 
-blog_id就是访问地址的尾巴。
-testblog
+blog_id就是访问地址的尾巴，
+testblog。
 
 ## username
 

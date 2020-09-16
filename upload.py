@@ -50,11 +50,11 @@ with open(md_path, encoding='utf-8') as f:
         print('无需上传图片')
 
     post = dict(description=md, title=title, categories=['[Markdown]'])
-    recent_posts = server.metaWeblog.getRecentPosts(blog_id, username, password, 999999)
+    recent_posts = server.metaWeblog.getRecentPosts(conf["blog_id"], conf["username"], conf["password"], 999999)
     # 获取所有标题，需要处理HTML转义字符
     recent_posts_titles = [html.unescape(recent_post['title']) for recent_post in recent_posts]
     if title not in recent_posts_titles:
-        server.metaWeblog.newPost(blog_id, username, password, post, publish)
+        server.metaWeblog.newPost(conf["blog_id"], conf["username"], conf["password"], post, conf["publish"])
         print(f"markdown上传成功, 博客标题为'{title}', 状态为'未发布', 请到博客园后台查看")
     elif input('博客已存在, 是否更新?(y/n)') == 'y':
         for recent_post in recent_posts:
@@ -62,10 +62,12 @@ with open(md_path, encoding='utf-8') as f:
                 update_post = recent_post
                 update_post['description'] = md
                 try:
-                    server.metaWeblog.editPost(update_post['postid'], username, password, update_post, False)
+                    server.metaWeblog.editPost(update_post['postid'], conf["username"], conf["password"], update_post,
+                                               False)
                 except xmlrpc.client.Fault as fault:
                     if 'published post can not be saved as draft' in str(fault):
-                        server.metaWeblog.editPost(update_post['postid'], username, password, update_post, True)
+                        server.metaWeblog.editPost(update_post['postid'], conf["username"], conf["password"],
+                                                   update_post, True)
                     else:
                         raise fault
                 print(f"博客'{title}'更新成功")

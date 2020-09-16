@@ -1,7 +1,7 @@
 import os
 import re
 
-from config import *
+from init import conf
 from mime import mime_mapping
 from server_proxy import server
 
@@ -25,7 +25,7 @@ async def upload_img(path):
             "name": name,
             "type": mime_mapping[suffix]
         }
-        url = server.metaWeblog.newMediaObject(blog_id, username, password, file)
+        url = server.metaWeblog.newMediaObject(conf["blog_id"], conf["username"], conf["password"], file)
         return url
 
 
@@ -35,12 +35,12 @@ def replace_md_img(path, img_mapping):
         md = fr.read()
         for local, net in img_mapping.items():  # 替换图片链接
             md = md.replace(local, net)
-        if img_tag:
+        if conf["img_format"]:
             md_links = re.findall("!\\[.*?\\]\\(.*?\\)", md)
             for ml in md_links:
                 img_url = re.findall("!\\[.*?\\]\\((.*?)\\)", md)[0]
-                md = md.replace(ml, f'<center>\n<img src="{img_url}" style="width:{img_width}" />\n</center>')
-        if gen_network_file:
+                md = md.replace(ml, conf["img_format"].format(img_url))
+        if conf["gen_network_file"]:
             path_net = os.path.join(os.path.dirname(path), '_network'.join(os.path.splitext(os.path.basename(path))))
             with open(path_net, 'w', encoding='utf-8') as fw:
                 fw.write(md)
