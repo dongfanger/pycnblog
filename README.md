@@ -44,4 +44,12 @@ password是密码。
 
 windows cmd:<br/>
 打开`cnblog_markdown.cmd`（windows里面双击此文件即可），提示`Please input file path:`<br/>
-把文件往里一拖，回车就完事了
+把文件往里一拖，回车就完事了。
+
+mac:<br/>
+
+配置PATH，`cd ~/`， `vim .bash_profile`，输入`i`编辑，添加`export PATH=/tool_local_path/:$PATH`，按下 “ESC” 按钮，输入`:wq!`，回车保存。立即生效，`source ~/.bash_profile`。
+
+`cd tool_local_path`，修改可执行文件权限，`chmod 777 cnblogmd`。
+
+以后直接打开终端，输入cnblogmd，就可以了。
