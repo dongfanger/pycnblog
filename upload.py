@@ -61,6 +61,10 @@ with open(md_path, encoding='utf-8') as f:
             if title == recent_post['title']:
                 update_post = recent_post
                 update_post['description'] = md
+                # 博客更新时保留摘要、标签
+                posted_article = server.metaWeblog.getPost(update_post['postid'], conf["username"], conf["password"])
+                update_post["mt_keywords"] = posted_article["mt_keywords"]
+                update_post["mt_excerpt"] = posted_article["mt_excerpt"]
                 try:
                     server.metaWeblog.editPost(update_post['postid'], conf["username"], conf["password"], update_post,
                                                False)
