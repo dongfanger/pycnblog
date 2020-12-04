@@ -1,7 +1,7 @@
 import os
 import re
 
-from init import conf
+from config_loader import conf
 from mime import mime_mapping
 from server_proxy import server
 
