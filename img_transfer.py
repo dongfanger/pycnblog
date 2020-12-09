@@ -37,8 +37,11 @@ def replace_md_img(path, img_mapping):
             md = md.replace(local, net)
         if conf["img_format"]:
             md_links = re.findall("!\\[.*?\\]\\(.*?\\)", md)
+            md_links += re.findall('<img src=.*/>', md)
             for ml in md_links:
-                img_url = re.findall("!\\[.*?\\]\\((.*?)\\)", md)[0]
+                img_url = re.findall("!\\[.*?\\]\\((.*?)\\)", ml)
+                img_url += re.findall('<img src="(.*?)"', ml)
+                img_url = img_url[0]
                 md = md.replace(ml, conf["img_format"].format(img_url))
         if conf["gen_network_file"]:
             path_net = os.path.join(os.path.dirname(path), '_network'.join(os.path.splitext(os.path.basename(path))))
