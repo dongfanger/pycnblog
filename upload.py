@@ -58,7 +58,7 @@ with open(md_path, encoding='utf-8') as f:
         print(f"markdown上传成功, 博客标题为'{title}', 状态为'未发布', 请到博客园后台查看")
     elif input('博客已存在, 是否更新?(y/n)') == 'y':
         for recent_post in recent_posts:
-            if title == recent_post['title']:
+            if title == html.unescape(recent_post['title']):
                 update_post = recent_post
                 update_post['description'] = md
                 # 博客更新时保留摘要、标签

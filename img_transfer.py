@@ -42,7 +42,12 @@ def replace_md_img(path, img_mapping):
                 img_url = re.findall("!\\[.*?\\]\\((.*?)\\)", ml)
                 img_url += re.findall('<img src="(.*?)"', ml)
                 img_url = img_url[0]
-                md = md.replace(ml, conf["img_format"].format(img_url))
+                if conf["img_format"] == "typora":
+                    zoom = re.findall(r'style="zoom:(.*)%;"', ml)
+                    if zoom:
+                        md = md.replace(ml, f'<center><img src="{img_url}"  style="width:{zoom[0]}%;" /></center>')
+                else:
+                    md = md.replace(ml, conf["img_format"].format(img_url))
         if conf["gen_network_file"]:
             path_net = os.path.join(os.path.dirname(path), '_network'.join(os.path.splitext(os.path.basename(path))))
             with open(path_net, 'w', encoding='utf-8') as fw:

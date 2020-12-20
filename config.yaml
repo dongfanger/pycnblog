@@ -10,5 +10,6 @@ gen_network_file: False
 publish: False
 
 # 图片自定义显示格式，默认不设置
-# 如设置width和居中，<center><img src="{}" style="width:100%" /></center>
+# img_format: "<center><img src="{}" style="width:100%;" /></center>" 设置居中和宽度
+# img_format: typora 还原typora图片样式，居中，设置zoom，上传后无需再手动调整图片大小
 img_format: ""
