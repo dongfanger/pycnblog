@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 while(true)
 do
     read -p "Please input file path:" filePath
