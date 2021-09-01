@@ -57,3 +57,4 @@ mac:<br/>
 以后直接打开终端，输入cnblogmd，就可以了。
 ---
 #####可以直接使用python3 upload.py xxx.md命令
+#### 这个文章写得比较详细 https://www.cnblogs.com/gered/p/14736136.html
