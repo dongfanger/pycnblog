@@ -1,7 +1,7 @@
 blog_url: xxx
-blog_id: "xxx"
-username: "xxx"
-password: "xxx"
+blog_id: xxx
+username: xxx
+password: xxx
 
 # 是否生成图片替换后本地文件,默认False关闭
 gen_network_file: False

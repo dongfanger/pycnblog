@@ -54,4 +54,3 @@ def replace_md_img(path, img_mapping):
                 fw.write(md)
                 print(f'图片链接替换完成，生成新markdown:{path_net}')
         return md
-
