@@ -57,7 +57,7 @@ if __name__ == '__main__':
             print('无需上传图片')
 
         post = dict(description=md, title=title, categories=['[Markdown]'])
-        recent_posts = server.metaWeblog.getRecentPosts(conf["blog_id"], conf["username"], conf["password"], 999999)
+        recent_posts = server.metaWeblog.getRecentPosts(conf["blog_id"], conf["username"], conf["password"], 99)
         # 获取所有标题，需要处理HTML转义字符
         recent_posts_titles = [html.unescape(recent_post['title']) for recent_post in recent_posts]
         if title not in recent_posts_titles:
