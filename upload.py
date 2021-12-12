@@ -32,6 +32,16 @@ def cancel_ssh_authentication():  # 取消全局ssl认证
     ssl._create_default_https_context = ssl._create_unverified_context
 
 
+async def upload_tasks(local_images_):
+    tasks = []
+    for li in local_images_:
+        image_full_path = os.path.join(dir_name, li)
+        task = asyncio.create_task(upload_img(image_full_path))
+        task.add_done_callback(get_image_url)
+        tasks.append(task)
+    await asyncio.gather(*tasks)
+
+
 if __name__ == '__main__':
     cancel_ssh_authentication()
     with open(md_path, encoding='utf-8') as f:
@@ -40,18 +50,8 @@ if __name__ == '__main__':
         local_images = find_md_img(md)
 
         if local_images:  # 有本地图片，异步上传
-            tasks = []
-            for li in local_images:
-                image_full_path = os.path.join(dir_name, li)
-                task = asyncio.ensure_future(upload_img(image_full_path))
-                task.add_done_callback(get_image_url)
-                tasks.append(task)
-            loop = asyncio.get_event_loop()
-            loop.run_until_complete(asyncio.wait(tasks))
-            loop.close()
-
+            asyncio.run(upload_tasks(local_images))
             image_mapping = dict(zip(local_images, net_images))
-
             md = replace_md_img(md_path, image_mapping)
         else:
             print('无需上传图片')
