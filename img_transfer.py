@@ -8,10 +8,11 @@ from server_proxy import server
 
 def find_md_img(md):
     """查找markdown中的图片，排除网络图片(不用上传)"""
-    images = re.findall("!\\[.*?\\]\\((.*)\\)", md)
+    images = re.findall("\\!\\[.*?\\]\\((.*?)\\)", md)
     images += re.findall('<img src="(.*?)"', md)
     images = [i for i in images if not re.match("((http(s?))|(ftp))://.*", i)]
-    print(f'共找到{len(images)}张本地图片{images}')
+    print(f'共找到{len(images)}张本地图片')
+    print(*images, sep='\n')
     return images
 
 
