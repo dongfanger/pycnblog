@@ -2,6 +2,10 @@
 
 博客园上传markdown文件 https://www.cnblogs.com/df888/p/11826480.html
 
+# 注意
+
+博客园6.21更新，MetaWeblog现在不支持密码登录，需要通过访问令牌（access token）登录，在博客后台设置页面，允许MetaWeblog博客客户端访问，下方有MetaWeblog访问令牌 ，点击查看，创建访问令牌。
+
 # 功能
 
 - 一键拖拽上传
