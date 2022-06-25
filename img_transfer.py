@@ -20,6 +20,7 @@ async def upload_img(path):
     """上传图片"""
     name = os.path.basename(path)
     _, suffix = os.path.splitext(name)
+    print(f"正在上传{name}")
     with open(path, 'rb') as f:
         file = {
             "bits": f.read(),
