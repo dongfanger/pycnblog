@@ -13,3 +13,9 @@ publish: False
 # img_format: "<center><img src="{}" style="width:100%;" /></center>" 设置居中和宽度
 # img_format: typora 还原typora图片样式，居中，设置zoom，上传后无需再手动调整图片大小
 img_format: ""
+
+#要添加到的分类 多个分类用英文逗号分开 不用分类则不填即可 例如
+#categories: c++
+#categories: c++,learn
+#categories:
+categories:

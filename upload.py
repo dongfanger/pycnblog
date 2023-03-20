@@ -56,13 +56,14 @@ if __name__ == '__main__':
         else:
             print('无需上传图片')
 
-        post = dict(description=md, title=title, categories=['[Markdown]'])
+        post = dict(description=md, title=title, categories=['[Markdown]']+conf["categories"])
         recent_posts = server.metaWeblog.getRecentPosts(conf["blog_id"], conf["username"], conf["password"], 99)
         # 获取所有标题，需要处理HTML转义字符
         recent_posts_titles = [html.unescape(recent_post['title']) for recent_post in recent_posts]
         if title not in recent_posts_titles:
             server.metaWeblog.newPost(conf["blog_id"], conf["username"], conf["password"], post, conf["publish"])
-            print(f"markdown上传成功, 博客标题为'{title}', 状态为'未发布', 请到博客园后台查看")
+            print(f"markdown上传成功, 博客标题为'{title}', 状态为'{'已发布' if conf['publish'] else '未发布'}', "
+                  f"分类为:{conf['categories']} 请到博客园后台查看")
         elif input('博客已存在, 是否更新?(y/n)') == 'y':
             for recent_post in recent_posts:
                 if title == html.unescape(recent_post['title']):
