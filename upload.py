@@ -64,7 +64,7 @@ if __name__ == '__main__':
             server.metaWeblog.newPost(conf["blog_id"], conf["username"], conf["password"], post, conf["publish"])
             print(f"markdown上传成功, 博客标题为'{title}', 状态为'{'已发布' if conf['publish'] else '未发布'}', "
                   f"分类为:{conf['categories']} 请到博客园后台查看")
-        elif input('博客已存在, 是否更新?(y/n)') == 'y':
+        else:
             for recent_post in recent_posts:
                 if title == html.unescape(recent_post['title']):
                     update_post = recent_post
@@ -80,7 +80,7 @@ if __name__ == '__main__':
                     try:
                         server.metaWeblog.editPost(update_post['postid'], conf["username"], conf["password"],
                                                    update_post,
-                                                   False)
+                                                   conf["publish"])
                     except xmlrpc.client.Fault as fault:
                         if 'published post can not be saved as draft' in str(fault):
                             server.metaWeblog.editPost(update_post['postid'], conf["username"], conf["password"],
@@ -88,5 +88,4 @@ if __name__ == '__main__':
                         else:
                             raise fault
                     print(f"博客'{title}'更新成功")
-        else:
-            print('上传已取消')
+
