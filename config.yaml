@@ -1,15 +1,21 @@
-blog_url: xxx
-blog_id: xxx
-username: xxx
-password: xxx
+blog_url: https://rpc.cnblogs.com/metaweblog/rainbow-tan
+blog_id: rainbow-tan
+username: 南风丶轻语
+password: C6AC1FD6E98D5ADFB241A7A9498BD538601ED1C1D214E3959DC4231CF512CB8E
 
 # 是否生成图片替换后本地文件,默认False关闭
-gen_network_file: False
+gen_network_file: True
 
 # 上传后是否发布，默认未发布，设置True为发布
-publish: False
+publish: True
 
 # 图片自定义显示格式，默认不设置
 # img_format: "<center><img src="{}" style="width:100%;" /></center>" 设置居中和宽度
 # img_format: typora 还原typora图片样式，居中，设置zoom，上传后无需再手动调整图片大小
 img_format: ""
+
+#要添加到的分类 多个分类用英文逗号分开 不用分类则不填即可 例如
+#categories: c++
+#categories: c++,learn
+#categories:
+categories:
