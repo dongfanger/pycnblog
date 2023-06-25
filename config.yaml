@@ -1,13 +1,13 @@
-blog_url: xxx
-blog_id: xxx
-username: xxx
-password: xxx
+blog_url: https://rpc.cnblogs.com/metaweblog/aaalei
+blog_id: aaalei
+username: 2468341590@qq.com
+password: 95529D103516E0289554BD76D87CBABC72811A92F37AEA3ABE3B8266D3A1B5F9
 
 # 是否生成图片替换后本地文件,默认False关闭
 gen_network_file: False
 
 # 上传后是否发布，默认未发布，设置True为发布
-publish: False
+publish: True
 
 # 图片自定义显示格式，默认不设置
 # img_format: "<center><img src="{}" style="width:100%;" /></center>" 设置居中和宽度
