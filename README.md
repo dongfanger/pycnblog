@@ -1,67 +1,139 @@
-# pycnblog
+# 博客上传脚本——博客园
 
-博客园上传markdown文件 https://www.cnblogs.com/df888/p/11826480.html
+## 致谢
 
-# 注意
+本项目基于[pycnblog](https://github.com/dongfanger/pycnblog)，由[dongfanger](https://github.com/dongfanger)等贡献者完成开发。在此特别感谢原作者的杰出工作。同时，感谢所有为开源社区做出贡献的开发者们！
 
-博客园6.21更新，MetaWeblog现在不支持密码登录，需要通过访问令牌（access token）登录，在博客后台设置页面，允许MetaWeblog博客客户端访问，下方有MetaWeblog访问令牌 ，点击查看，创建访问令牌。
+## 功能
 
-# 功能
+目前，仅支持上传至博客园的随笔。
 
-- 一键拖拽上传
 - 默认“未发布”，可选择直接发布
-- 重复上传，提示是否更新博客
+- 重复上传，则更新博客
+- 提供类别提示
+- 选择上传的类别。若选择的类别不存在，则会创建新类别
 
-# 环境
+## 环境配置
 
-python3
+1. 克隆仓库
 
-`git clone git@github.com:dongfanger/pycnblog.git`
+`git clone git@github.com:Shane-shy/pycnblog.git`
 
-`pip install pyyaml`
+2. 环境配置：需要`python`，`pip`以及库函数`pyyaml`，库函数可以自动安装。三种情况命令行都会进行相应提示。
 
-# 配置
+3. 修改配置文件`config.yaml`
 
-在config.yaml中，填写博客配置信息。
+   - blog_url：在博客后台>设置，页面最下方的MetaWeblog访问地址
+   - blog_id：blog_url的结尾部分
+   - username：登录用户名，跟blog_id不一定是同一个，最好去用户设置内查看
+   - password：在博客后台>设置，页面最下方的MetaWeblog访问令牌
 
-```python
-blog_url: https: // rpc.cnblogs.com / metaweblog / testblog
-blog_id: "testblog"
-username: "zhangsan"
-password: "123456"
-```
+4. 相关补充文件
 
-## blog_url
+   - `config.yaml`
 
-blog_url在博客后台>设置，页面最下方的MetaWeblog访问地址。
-https://rpc.cnblogs.com/metaweblog/testblog
+   ```yaml
+   # 注意引号
+   blog_url: xxx
+   blog_id: 'xxx'
+   username: 'xxx'
+   # MetaWeblog访问令牌
+   password: 'xxx'
+   
+   # 是否生成图片替换后本地文件,默认False关闭
+   gen_network_file: False
+   
+   # 上传后是否发布，默认未发布，设置True为发布
+   publish: False
+   
+   # 图片自定义显示格式，默认不设置
+   
+   # 设置居中和宽度
+   # img_format: "<center><img src="" style="width:100%;" /></center>"
+   
+   # 还原typora图片样式，居中，设置zoom，上传后无需再手动调整图片大小
+   img_format: typora
+   
+   # 不设置
+   #img_format: ""
+   ```
 
-## blog_id
+   - `linux_upload_markdown.sh`
 
-blog_id就是访问地址的尾巴， testblog。
+   ```shell
+   #!/bin/bash
+   
+   # 设置getCategories.py的绝对路径
+   PYTHON_CATEGORIES_PATH=""
+   # 设置upload_markdown.py的绝对路径
+   PYTHON_UPLOAD_PATH=""
+   
+   # &> /dev/null：重定向并丢弃，避免将检测结果输出在终端，
+   # 检查是否安装了 Python
+   if  ! command -v python3 &> /dev/null;then
+       echo "Python3 未安装，请安装 Python3。"
+       exit 1
+   fi
+   
+   # 检查是否安装了 pip
+   if  ! command -v pip3 &> /dev/null;then
+       echo "pip3 未安装，请安装 pip3。"
+       exit 1
+   fi
+   
+   # 检查是否安装了所需的 Python 包
+   REQUIRED_PKG="pyyaml"
+   for PKG in $REQUIRED_PKG; do
+       if ! pip3 show $PKG &> /dev/null; then
+           echo "$PKG 未安装，正在安装..."
+           pip3 install $PKG
+       fi
+   done
+   
+   # 检测是否配置了Python脚本路径
+   if [ -z $PYTHON_UPLOAD_PATH ];then
+     echo "未配置upload_markdown.py脚本路径"
+     exit 0
+   fi
+   
+   if [ -z $PYTHON_CATEGORIES_PATH ];then
+     echo "未配置getCategories.py脚本路径"
+     exit 0
+   fi
+   
+   
+   
+   while true; do
+     # read：按行读取，可以一次性读取多个值；参数p：读入字符串之前，打印的提示字符串；
+       read -p  "Please input file path: " filePath
+       python "$PYTHON_CATEGORIES_PATH"
+       read -p  "Please input categories (separated by space): " category
+       python "$PYTHON_UPLOAD_PATH" "$filePath" "$category"
+       status=$?
+       if [ $status -eq 0 ];then
+         echo "Uploading success"
+         break
+       else
+         echo "Uploading fail"
+       fi
+   done
+   ```
+   
+   - `mac_upload_markdown`：应该与`linux_upload_markdown.sh`相同
+   
 
-## username
+## 使用方法
 
-username是登录用户名，跟blog_id不一定是同一个。
+- Linux：`bash linux_upload_markdown.sh`，根据提示执行之后操作。`Please input file path:`时，可以直接将文件拖入命令行，就能生成绝对路径。**通过测试。**
+- Macos：与Linux相同，**通过测试。**
+- Windows：本项目实际运行是python脚本，因此不存在操作系统限制。笔者能力有限，若希望实现Windows终端执行本脚本，请自行编写终端脚本文件。
 
-## password
+### 常见问题
 
-password是密码。
+1. 上传失败，留意终端报错信息。
+2. 图片无法上传、图片文件路径正确但程序无法找到。
+   - 检查是否存在“空图像”，如**`![]()`或`\<img src = "" />`**。若存在，请删除。
+   - 检查图片路径是否存在括号嵌套问题，如**`![](())`**。使用正则表达式筛选括号嵌套问题难度大，笔者能力有限，没能实现，所以请修改图片名称或图片路径为非括号嵌套形式。
 
-# 运行
 
-windows cmd:<br/>
-打开`cnblog_markdown.cmd`（windows里面双击此文件即可），提示`Please input file path:`<br/>
-把文件往里一拖，回车就完事了。
-
-mac:<br/>
-配置PATH，`cd ~/`， `vim .bash_profile`，输入`i`编辑，添加`export PATH=/tool_local_path/:$PATH`，按下 “ESC” 按钮，输入`:wq!`
-，回车保存。立即生效，`source ~/.bash_profile`。`cd tool_local_path`，修改可执行文件权限，`chmod 777 cnblogmd`。修改`cnblogmd`
-文件，`/tool_local_path/upload.py`。 <br/>
-
-以后直接打开终端，输入cnblogmd，就可以了。
-
-可以直接使用python3 upload.py xxx.md命令
-
-这个文章写得比较详细 https://www.cnblogs.com/gered/p/14736136.html
 

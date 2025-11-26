@@ -1,3 +1,4 @@
+import sys
 import xmlrpc.client
 
 from config_loader import conf
@@ -8,4 +9,5 @@ try:
 except Exception as e:
     e = str(e)
     if 'unsupported XML-RPC protocol' in e:
-        print('请查看config.yaml文件中的blog_url,应该是这个URL地址没设置对')
+        print('Check blog_url in config.yaml')
+    sys.exit(1)

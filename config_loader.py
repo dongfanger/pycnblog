@@ -1,40 +1,19 @@
-#!/usr/bin/python
-# encoding=utf-8
-
 """
-@Author  :  Don
-@Date    :  9/16/2020 1:40 PM
-@Desc    :  
+@Time    : 2024/5/23 
+@Author  : 顾子郤
+@Function: 读取config.yaml
 """
-import os
 
 import yaml
+import os
 
-config_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.yaml")
+# 获取当前脚本的绝对路径
+current_file_path = os.path.abspath(__file__)
 
+# 获取当前脚本所在目录的路径
+current_directory = os.path.dirname(current_file_path)
+
+# 读取config.yaml
+config_path = current_directory + '/' + 'config.yaml'
 with open(config_path, "r", encoding="utf-8") as f:
     conf = yaml.load(f.read(), Loader=yaml.FullLoader)
-
-
-def _check_categories(categories):
-    new = []
-    if categories:
-        for one in categories.split(','):
-            if str(one).strip() != "":
-                new.append(one)
-    else:
-        new = []
-    return new
-
-
-def check_categories(categories):
-    try:
-        categories = _check_categories(categories)
-        print(f"要添加到的分类为:{categories}")
-        return categories
-    except:
-        print("类别错误, 设置类别为空")
-        return []
-
-
-conf["categories"] = check_categories(conf["categories"])

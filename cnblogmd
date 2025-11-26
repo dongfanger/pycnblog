@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-while(true)
-do
-    read -p "Please input file path:" filePath
-    python3 /tool_local_path/upload.py $filePath
-done
