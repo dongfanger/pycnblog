@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
+# 博客园 markdown 上传工具 (mac 版, 对应 cnblog_markdown.cmd)
+# 用法: 双击文件名执行本脚本, 提示后把 .md 文件拖进终端窗口再回车即可; Ctrl+C 退出
 
-while(true)
-do
-    read -p "Please input file path:" filePath
-    python3 /tool_local_path/upload.py $filePath
+# 自动定位脚本所在目录, 不必再手动改 upload.py 的路径
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 优先 python3, 没有再回退 python
+PYTHON=python3
+command -v "$PYTHON" >/dev/null 2>&1 || PYTHON=python
+
+while true; do
+    read -p "Please input file path (Ctrl+C 退出): " filePath
+    # 去掉手动/粘贴时可能带上的首尾引号
+    filePath="${filePath%\"}"; filePath="${filePath#\"}"
+    filePath="${filePath%\'}"; filePath="${filePath#\'}"
+    [ -z "$filePath" ] && continue
+    "$PYTHON" "$SCRIPT_DIR/upload.py" "$filePath"
 done
