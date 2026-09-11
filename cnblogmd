@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # 博客园 markdown 上传工具 (mac 版, 对应 cnblog_markdown.cmd)
-# 用法: 双击文件名执行本脚本, 提示后把 .md 文件拖进终端窗口再回车即可; Ctrl+C 退出
+# 用法: 先修改执行权限，路径替换为你的实际绝对路径
+# chmod +x path/pycnblog/cnblogmd && ls -l path/pycnblog/cnblogmd
+# 双击文件名执行本脚本, 提示后把 .md 文件拖进终端窗口再回车即可; Ctrl+C 退出
 
 # 自动定位脚本所在目录, 不必再手动改 upload.py 的路径
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
